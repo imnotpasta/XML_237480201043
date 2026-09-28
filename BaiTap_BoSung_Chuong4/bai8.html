@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 8</title>
+</head>
+<body>
+
+    <h2>Bài 8: Xóa nhân viên có mã 001</h2>
+
+    <div id="result"></div>
+
+    <script>
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function() {
+
+            var xmlDoc = this.responseXML;
+            var root = xmlDoc.documentElement;
+
+            var nhanvien = root.getElementsByTagName("nhanvien");
+
+            for (var i = 0; i < nhanvien.length; i++) {
+
+                var ma = nhanvien[i]
+                    .getElementsByTagName("manv")[0]
+                    .textContent.trim();
+
+                if (ma == "001") {
+                    root.removeChild(nhanvien[i]);
+                    break;
+                }
+            }
+
+            var result = "";
+
+            var danhSach = root.getElementsByTagName("nhanvien");
+
+            for (var i = 0; i < danhSach.length; i++) {
+
+                var ma = danhSach[i]
+                    .getElementsByTagName("manv")[0]
+                    .textContent.trim();
+
+                var ten = danhSach[i]
+                    .getElementsByTagName("hoten")[0]
+                    .textContent.trim();
+
+                var donvi = danhSach[i]
+                    .getElementsByTagName("donvi")[0]
+                    .textContent.trim();
+
+                result +=
+                    "Mã NV: " + ma +
+                    " - Họ tên: " + ten +
+                    " - Đơn vị: " + donvi +
+                    "<br>";
+            }
+
+            document.getElementById("result").innerHTML = result;
+        };
+
+        xhttp.onerror = function() {
+            document.getElementById("result").innerHTML =
+                "Không đọc được file danhsachnhanvien.xml";
+        };
+
+        xhttp.open("GET", "danhsachnhanvien.xml", true);
+        xhttp.send();
+
+    </script>
+
+</body>
+</html>

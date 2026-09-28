@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 9</title>
+</head>
+<body>
+
+    <h2>Bài 9: Tăng lương nhân viên Kỹ thuật 10%</h2>
+
+    <div id="result"></div>
+
+    <script>
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function() {
+
+            var xmlDoc = this.responseXML;
+            var nhanvien = xmlDoc.getElementsByTagName("nhanvien");
+
+            var result = "";
+
+            for (var i = 0; i < nhanvien.length; i++) {
+
+                var donvi = nhanvien[i]
+                    .getElementsByTagName("donvi")[0]
+                    .textContent.trim();
+
+                if (donvi == "Kỹ thuật") {
+
+                    var ma = nhanvien[i]
+                        .getElementsByTagName("manv")[0]
+                        .textContent.trim();
+
+                    var ten = nhanvien[i]
+                        .getElementsByTagName("hoten")[0]
+                        .textContent.trim();
+
+                    var luong = nhanvien[i]
+                        .getElementsByTagName("luong")[0];
+
+                    var luongCu = luong.firstChild.nodeValue.trim();
+
+                    var soLuong = parseInt(
+                        luongCu.replace(/\./g, "")
+                    );
+
+                    var luongMoi = soLuong * 1.10;
+
+                    luong.firstChild.nodeValue =
+                        luongMoi.toLocaleString("vi-VN");
+
+                    result =
+                        "Mã NV: " + ma +
+                        "<br>" +
+                        "Họ tên: " + ten +
+                        "<br>" +
+                        "Đơn vị: " + donvi +
+                        "<br>" +
+                        "Lương cũ: " + luongCu + " VNĐ" +
+                        "<br>" +
+                        "Lương mới: " +
+                        luong.firstChild.nodeValue +
+                        " VNĐ";
+                }
+            }
+
+            document.getElementById("result").innerHTML = result;
+        };
+
+        xhttp.onerror = function() {
+            document.getElementById("result").innerHTML =
+                "Không đọc được file danhsachnhanvien.xml";
+        };
+
+        xhttp.open("GET", "danhsachnhanvien.xml", true);
+        xhttp.send();
+
+    </script>
+
+</body>
+</html>
