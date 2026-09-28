@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tổng lương nhân viên</title>
+</head>
+<body>
+
+    <h2>Tổng lương của tất cả nhân viên</h2>
+    <p id="tongluong"></p>
+
+    <script>
+        fetch("danhsachnhanvien.xml")
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(data, "text/xml");
+
+                const nhanviens = xml.getElementsByTagName("nhanvien");
+                let tongLuong = 0;
+
+                for (let nv of nhanviens) {
+                    let luong = nv.getElementsByTagName("luong")[0]
+                                  .textContent
+                                  .trim();
+
+                    // Xóa dấu chấm trong số tiền
+                    luong = luong.replace(/\./g, "");
+
+                    tongLuong += Number(luong);
+                }
+
+                document.getElementById("tongluong").textContent =
+                    tongLuong.toLocaleString("vi-VN") + " đồng";
+            });
+    </script>
+
+</body>
+</html>

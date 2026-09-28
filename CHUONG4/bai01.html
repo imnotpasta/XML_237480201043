@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hiển thị nhân viên</title>
+</head>
+<body>
+
+    <h2>Nhân viên có mã 002</h2>
+    <p id="hoten"></p>
+
+    <script>
+        fetch("danhsachnhanvien.xml")
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(data, "text/xml");
+
+                const nhanviens = xml.getElementsByTagName("nhanvien");
+
+                for (let nv of nhanviens) {
+                    const manv = nv.getElementsByTagName("manv")[0]
+                                      .textContent.trim();
+
+                    if (manv === "002") {
+                        const hoten = nv.getElementsByTagName("hoten")[0]
+                                         .textContent.trim();
+
+                        document.getElementById("hoten").textContent = hoten;
+                    }
+                }
+            });
+    </script>
+
+</body>
+</html>
