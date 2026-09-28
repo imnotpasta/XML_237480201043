@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 4 - Lọc sách theo giá</title>
+</head>
+
+<body>
+
+    <h2>Bài 4: Sách có giá lớn hơn 30.00</h2>
+
+    <div id="result"></div>
+
+    <script>
+        window.onload = function () {
+
+            // Tạo XMLHttpRequest
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+
+                if (this.readyState === 4 && this.status === 200) {
+
+                    // Lấy tài liệu XML
+                    const xmlDoc = this.responseXML;
+
+                    // Lấy tất cả các book
+                    const books = xmlDoc.getElementsByTagName("book");
+
+                    let result = "<h3>Danh sách sách:</h3>";
+
+                    // Duyệt qua từng book
+                    for (let i = 0; i < books.length; i++) {
+
+                        // Lấy tên sách
+                        const title = books[i]
+                            .getElementsByTagName("title")[0]
+                            .textContent;
+
+                        // Lấy giá sách
+                        const price = parseFloat(
+                            books[i]
+                                .getElementsByTagName("price")[0]
+                                .textContent
+                        );
+
+                        // Kiểm tra giá > 30
+                        if (price > 30.00) {
+
+                            result +=
+                                "<p>" +
+                                "Tên sách: " + title +
+                                " - Giá: " + price.toFixed(2) +
+                                "</p>";
+                        }
+                    }
+
+                    // Hiển thị kết quả
+                    document.getElementById("result").innerHTML = result;
+                }
+            };
+
+            // Đọc file book.xml
+            xhttp.open("GET", "book.xml", true);
+
+            // Gửi yêu cầu
+            xhttp.send();
+        };
+    </script>
+
+</body>
+</html>

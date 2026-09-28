@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 2</title>
+</head>
+<body>
+
+<h2>Bài 2: Danh sách tên sách</h2>
+
+<div id="result"></div>
+
+<script>
+
+    // Tự động chạy khi trang HTML được mở
+    window.onload = function() {
+
+        // Tạo XMLHttpRequest
+        let xhr = new XMLHttpRequest();
+
+        // Mở file book.xml
+        xhr.open("GET", "book.xml", true);
+
+        // Xử lý khi tải file xong
+        xhr.onload = function() {
+
+            if (xhr.status === 200 || xhr.status === 0) {
+
+                // Lấy XML DOM
+                let xmlDoc = xhr.responseXML;
+
+                // Lấy tất cả thẻ title
+                let titles =
+                    xmlDoc.getElementsByTagName("title");
+
+                let result = "";
+
+                // Duyệt danh sách title
+                for (let i = 0; i < titles.length; i++) {
+
+                    // Lấy giá trị bằng nodeValue
+                    result +=
+                        (i + 1) + ". " +
+                        titles[i].firstChild.nodeValue +
+                        "<br>";
+                }
+
+                // Hiển thị kết quả
+                document.getElementById("result").innerHTML =
+                    result;
+
+            } else {
+
+                document.getElementById("result").innerHTML =
+                    "Không thể đọc file book.xml";
+            }
+        };
+
+        // Gửi yêu cầu
+        xhr.send();
+    };
+
+</script>
+
+</body>
+</html>

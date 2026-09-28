@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 5 - Đọc thuộc tính category</title>
+</head>
+
+<body>
+
+    <h2>Bài 5: Đọc thuộc tính category của sách</h2>
+
+    <div id="result"></div>
+
+    <script>
+        window.onload = function () {
+
+            // Tạo XMLHttpRequest
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+
+                if (this.readyState === 4 && this.status === 200) {
+
+                    // Lấy tài liệu XML
+                    const xmlDoc = this.responseXML;
+
+                    // Lấy tất cả thẻ book
+                    const books = xmlDoc.getElementsByTagName("book");
+
+                    let result = "<h3>Danh sách thể loại:</h3>";
+
+                    // Duyệt qua từng book
+                    for (let i = 0; i < books.length; i++) {
+
+                        // Lấy tên sách
+                        const title = books[i]
+                            .getElementsByTagName("title")[0]
+                            .textContent;
+
+                        // Lấy thuộc tính category
+                        const category = books[i]
+                            .getAttribute("category");
+
+                        result +=
+                            "<p>" +
+                            "Tên sách: " + title +
+                            " - Category: " + category +
+                            "</p>";
+                    }
+
+                    // Hiển thị kết quả
+                    document.getElementById("result").innerHTML = result;
+                }
+            };
+
+            // Đọc file book.xml
+            xhttp.open("GET", "book.xml", true);
+
+            // Gửi yêu cầu
+            xhttp.send();
+        };
+    </script>
+
+</body>
+</html>

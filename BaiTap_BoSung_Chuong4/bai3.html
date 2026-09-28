@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 3 - firstElementChild và lastElementChild</title>
+</head>
+
+<body>
+
+    <h2>Bài 3: firstElementChild và lastElementChild</h2>
+
+    <div id="result"></div>
+
+    <script>
+        window.onload = function () {
+
+            // Chuỗi XML
+            const xmlString = `
+                <book>
+                    <title>Everyday Italian</title>
+                    <author>Giada De Laurentiis</author>
+                    <year>2005</year>
+                    <price>30.00</price>
+                </book>
+            `;
+
+            // Chuyển chuỗi XML thành XML DOM
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+            // Lấy phần tử book
+            const book = xmlDoc.documentElement;
+
+            // Lấy phần tử con đầu tiên
+            const firstChild = book.firstElementChild;
+
+            // Lấy phần tử con cuối cùng
+            const lastChild = book.lastElementChild;
+
+            // Hiển thị kết quả
+            document.getElementById("result").innerHTML =
+                "<p>Phần tử đầu tiên: " +
+                firstChild.textContent +
+                "</p>" +
+
+                "<p>Phần tử cuối cùng: " +
+                lastChild.textContent +
+                "</p>";
+        };
+    </script>
+
+</body>
+</html>
