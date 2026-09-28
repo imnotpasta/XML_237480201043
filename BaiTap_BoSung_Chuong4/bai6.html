@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 6 - parentNode</title>
+</head>
+
+<body>
+
+    <h2>Bài 6: Tìm đơn vị của nhân viên có mã 002</h2>
+
+    <div id="result"></div>
+
+    <script>
+        window.onload = function () {
+
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+
+                // Đọc XML thành công
+                if (this.readyState === 4 && this.status === 200) {
+
+                    const xmlDoc = this.responseXML;
+
+                    // Lấy tất cả thẻ manv
+                    const danhSachMaNV =
+                        xmlDoc.getElementsByTagName("manv");
+
+                    let timThay = false;
+
+                    for (let i = 0; i < danhSachMaNV.length; i++) {
+
+                        // Lấy mã nhân viên
+                        const maNV =
+                            danhSachMaNV[i].textContent.trim();
+
+                        // Kiểm tra mã 002
+                        if (maNV === "002") {
+
+                            // parentNode của manv là nhanvien
+                            const nhanVien =
+                                danhSachMaNV[i].parentNode;
+
+                            // Lấy họ tên
+                            const hoTen =
+                                nhanVien
+                                .getElementsByTagName("hoten")[0]
+                                .textContent;
+
+                            // Lấy đơn vị
+                            const donVi =
+                                nhanVien
+                                .getElementsByTagName("donvi")[0]
+                                .textContent;
+
+                            // Hiển thị kết quả
+                            document.getElementById("result").innerHTML =
+                                "<h3>Kết quả:</h3>" +
+                                "<p>Mã nhân viên: " + maNV + "</p>" +
+                                "<p>Họ tên: " + hoTen + "</p>" +
+                                "<p>Đơn vị: " + donVi + "</p>";
+
+                            timThay = true;
+                            break;
+                        }
+                    }
+
+                    // Không tìm thấy mã 002
+                    if (!timThay) {
+                        document.getElementById("result").innerHTML =
+                            "<p>Không tìm thấy nhân viên có mã 002.</p>";
+                    }
+                }
+
+                // Không đọc được file XML
+                if (this.readyState === 4 && this.status !== 200) {
+
+                    document.getElementById("result").innerHTML =
+                        "<p style='color:red'>" +
+                        "Không thể đọc file danhsachnhanvien.xml" +
+                        "</p>";
+                }
+            };
+
+            // Đọc file XML
+            xhttp.open(
+                "GET",
+                "danhsachnhanvien.xml",
+                true
+            );
+
+            xhttp.send();
+        };
+    </script>
+
+</body>
+</html>
