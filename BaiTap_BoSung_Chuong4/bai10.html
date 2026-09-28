@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 10</title>
+</head>
+<body>
+
+    <h2>Bài 10: Danh sách nhân viên</h2>
+
+    <label>Nhập đơn vị cần tìm: </label>
+    <input type="text" id="timkiem" onkeyup="locNhanVien()">
+
+    <br><br>
+
+    <table border="1" cellpadding="8" id="table">
+        <tr>
+            <th>Mã NV</th>
+            <th>Họ tên</th>
+            <th>Đơn vị</th>
+            <th>Lương</th>
+        </tr>
+    </table>
+
+    <script>
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                var xmlDoc = this.responseXML;
+                var nhanvien = xmlDoc.getElementsByTagName("nhanvien");
+
+                var table = document.getElementById("table");
+
+                for (var i = 0; i < nhanvien.length; i++) {
+
+                    var row = table.insertRow();
+
+                    row.insertCell(0).innerHTML =
+                        nhanvien[i].getElementsByTagName("manv")[0].textContent;
+
+                    row.insertCell(1).innerHTML =
+                        nhanvien[i].getElementsByTagName("hoten")[0].textContent;
+
+                    row.insertCell(2).innerHTML =
+                        nhanvien[i].getElementsByTagName("donvi")[0].textContent;
+
+                    row.insertCell(3).innerHTML =
+                        nhanvien[i].getElementsByTagName("luong")[0].textContent;
+                }
+            }
+        };
+
+        xhttp.open("GET", "danhsachnhanvien.xml", true);
+        xhttp.send();
+
+
+        function locNhanVien() {
+
+            var input = document.getElementById("timkiem");
+            var filter = input.value.toLowerCase();
+
+            var table = document.getElementById("table");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+
+                var donvi = rows[i]
+                    .getElementsByTagName("td")[2]
+                    .textContent
+                    .toLowerCase();
+
+                if (donvi.includes(filter)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
