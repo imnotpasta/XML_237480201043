@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <danhsach>
-  <sinhvien sinhvien_id="cn001">
-    <hoten>Nguyen Trinh</hoten>
-    <nganh>tin hoc</nganh>
-    <tuoi>20</tuoi>
-  </sinhvien>
-	<sinhvien>
-		<hoten>Nguyễn Hoàng Tiến</hoten>
-		<nganh>Quản trị kinh doanh</nganh>
-		<tuoi>20</tuoi>
-	</sinhvien>
+    <sinhvien>
+        <hoten>Huỳnh Huy Tuấn</hoten>
+        <nganh>Khoa học máy tính</nganh>
+        <tuoi>52</tuoi>
+    </sinhvien>
+    <sinhvien>
+        <hoten>Huỳnh Minh Đạt</hoten>
+        <nganh>Công nghệ thông tin</nganh>
+        <tuoi>16</tuoi>
+    </sinhvien>
+    <sinhvien>
+        <hoten>Huỳnh Định Tường</hoten>
+        <nganh>Nông nghiệp</nganh>
+        <tuoi>18</tuoi>
+    </sinhvien>
+    <sinhvien>
+        <hoten>Trương Thu Hương</hoten>
+        <nganh>Công nghệ phần mềm</nganh>
+        <tuoi>20</tuoi>
+    </sinhvien>
+    <sinhvien>
+        <hoten>Nguyễn Thu Thủy</hoten>
+        <nganh>Quản trị kinh doanh</nganh>
+        <tuoi>21</tuoi>
+    </sinhvien>
+    <sinhvien>
+        <hoten>Nguyễn Hoàng Tiến</hoten>
+        <nganh>Quản trị kinh doanh</nganh>
+        <tuoi>20</tuoi>
+    </sinhvien>
 </danhsach>
