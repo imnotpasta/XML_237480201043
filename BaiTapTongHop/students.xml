@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+    <student>
+        <id>SV001</id>
+        <name>Nguyễn Văn A</name>
+        <class>CNTT1</class>
+        <score>8.5</score>
+    </student>
+    <student>
+        <id>SV002</id>
+        <name>Trần Thị B</name>
+        <class>CNTT2</class>
+        <score>9.0</score>
+    </student>
+    <student>
+        <id>SV003</id>
+        <name>Lê Văn C</name>
+        <class>CNTT1</class>
+        <score>6.5</score>
+    </student>
+</students>
